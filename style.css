@@ -1,0 +1,136 @@
+:root {
+    --primary-red: #e53935;
+    --primary-gold: #FFD700;
+    --neon-frame-color: #00bcd4; 
+    
+    /* Warna Neon Pohon */
+    --color-green: #4CAF50;
+    --color-red: #e53935;
+    --color-blue: #2196F3;
+    --color-yellow: #FFC300;
+
+    /* Latar belakang kartu transparan dengan nuansa biru */
+    --glass-bg: rgba(33, 150, 243, 0.15); 
+    --glass-border: rgba(255, 255, 255, 0.3); 
+    --primary-white: #f0f0f0;
+}
+
+/* Font Definitions */
+.poppins-font { font-family: 'Poppins', sans-serif; }
+.playfair-font { font-family: 'Playfair Display', serif; }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+    color: var(--primary-white);
+    overflow: hidden; /* FIX: Mencegah jitter/gerakan kartu */
+    position: relative;
+}
+
+/* --- WRAPPER (Bingkai Neon) --- */
+.christmas-card-wrapper {
+    position: relative; z-index: 10; padding: 10px; border-radius: 25px;
+    box-shadow: 0 0 10px var(--neon-frame-color), 0 0 20px var(--neon-frame-color), 0 0 40px var(--neon-frame-color);
+    animation: neonPulse 3s infinite alternate; 
+    transform: none; /* FIX: Memastikan kartu tidak bergerak */
+}
+@keyframes neonPulse {
+    0% { box-shadow: 0 0 10px var(--neon-frame-color), 0 0 20px var(--neon-frame-color); }
+    100% { box-shadow: 0 0 15px var(--neon-frame-color), 0 0 30px var(--neon-frame-color), 0 0 50px var(--neon-frame-color); }
+}
+
+/* --- KARTU GLASSMORPHISM BIRU TRANSPARAN & LAYOUT --- */
+.christmas-card {
+    background: var(--glass-bg); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 15px; 
+    border: 1px solid var(--glass-border); 
+    padding: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
+    max-width: 750px; width: 100%;
+    display: flex; gap: 40px; align-items: center; text-align: left;
+}
+.card-left-section {
+    width: 35%; min-width: 150px; padding-right: 15px; 
+    border-right: 1px solid var(--glass-border);
+}
+.card-right-section {
+    width: 65%; display: flex; flex-direction: column; justify-content: center;
+}
+
+/* --- STYLE TEKS (Rapi dan Modern) --- */
+.tagline {
+    color: var(--primary-gold); font-weight: 600; letter-spacing: 3px; margin: 0 0 10px 0; text-transform: uppercase;
+}
+.main-greeting {
+    font-size: 3.8em; color: var(--primary-red); margin: 5px 0 20px 0; line-height: 1; font-weight: 700; 
+    animation: textFlicker 2s infinite alternate;
+}
+.message {
+    font-size: 1.1em; line-height: 1.7; margin-bottom: 15px; opacity: 0.9; font-style: italic;
+}
+
+/* --- STYLE AREA INPUT DOA (TEXTAREA) - PERBAIKAN LEBAR --- */
+#doa-input {
+    /* FIX UTAMA: Gunakan box-sizing: border-box agar padding tidak menambah lebar total */
+    box-sizing: border-box; 
+    width: 100%; 
+    min-height: 100px; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    
+    color: var(--primary-white); 
+    font-size: 1em;
+    resize: vertical; 
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+#doa-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+#doa-input:focus {
+    outline: none; border: 1px solid var(--primary-gold);
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.5); 
+}
+
+/* --- STYLE TOMBOL SUBMIT "Kirim Doa" --- */
+#submit-doa {
+    background-color: var(--color-green); 
+    color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-weight: 700; letter-spacing: 1px; font-size: 1.1em;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5); align-self: flex-start; 
+}
+#submit-doa:hover { background-color: #388e3c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 175, 80, 0.7); }
+
+/* --- POHON NATAL MULTIWARNA & EFEK LAMPU TUMBLER (Keyframes) --- */
+.tree-line {
+    fill: none; stroke: var(--color-green); stroke-width: 2.5; stroke-linecap: round;
+    filter: drop-shadow(0 0 5px var(--color-green)) drop-shadow(0 0 15px var(--color-red)); 
+    stroke-dasharray: 200; stroke-dashoffset: 0;
+    animation: drawFlow 6s linear infinite, colorShift 12s linear infinite; 
+}
+@keyframes drawFlow { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 400; } }
+@keyframes colorShift {
+    0% { stroke: var(--color-green); filter: drop-shadow(0 0 5px var(--color-green)) drop-shadow(0 0 15px var(--color-red)); }
+    25% { stroke: var(--color-red); filter: drop-shadow(0 0 5px var(--color-red)) drop-shadow(0 0 15px var(--color-blue)); }
+    50% { stroke: var(--color-blue); filter: drop-shadow(0 0 5px var(--color-blue)) drop-shadow(0 0 15px var(--color-yellow)); }
+    75% { stroke: var(--color-yellow); filter: drop-shadow(0 0 5px var(--color-yellow)) drop-shadow(0 0 15px var(--color-green)); }
+    100% { stroke: var(--color-green); filter: drop-shadow(0 0 5px var(--color-green)) drop-shadow(0 0 15px var(--color-red)); }
+}
+/* ... (Lanjutan Keyframes dan Salju) ... */
+.snowflake-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;
+}
+.snowflake {
+    color: #fff; font-size: 1.2em; position: absolute; animation: fall linear infinite; opacity: 0.8; text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+}
+@keyframes fall { to { transform: translateY(100vh); } }
